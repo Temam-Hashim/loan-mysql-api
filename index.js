@@ -17,6 +17,6 @@ app.use("/api/v1/customers/", customerRouter);
 app.use("/api/v1/services/", serviceRouter);
 
 const port = process.env.SERVER_PORT;
-app.listen(port && "5010", () => {
+app.listen(port, () => {
   console.log("SERVER RUNNING ON PORT " + port);
 });
