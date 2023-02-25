@@ -1,8 +1,11 @@
 import dotenv from "dotenv";
 import express from "express";
+import cors from "cors";
 const app = express();
 app.use(express.json());
 dotenv.config();
+
+app.use(cors());
 // import each routers
 import userRouter from "./api/users/user_router.js";
 import customerRouter from "./api/customer/customer_route.js";

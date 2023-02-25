@@ -8,13 +8,13 @@ import {
 } from "./service_controller.js";
 import express from "express";
 const router = express.Router();
-import { checkToken } from "../../auth/token_validation.js";
+// import { checkToken } from "../../auth/token_validation.js";
 
-router.post("/", checkToken, createService);
-router.get("/", checkToken, getServices);
-router.patch("/:id", checkToken, updateService);
-router.delete("/:id", checkToken, deleteService);
-router.get("/:id", checkToken, getServiceById);
-router.post("/name", checkToken, getServiceByName);
+router.post("/", createService);
+router.get("/", getServices);
+router.patch("/:id", updateService);
+router.delete("/:id", deleteService);
+router.get("/:id", getServiceById);
+router.post("/name", getServiceByName);
 
 export default router;

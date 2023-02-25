@@ -144,7 +144,7 @@ export function login(req, res) {
       });
     }
 
-    const result = compareSync(req.body.password, results.password);
+    const result = bcrypt.compareSync(req.body.password, results.password);
     // console.log(results[0].user_password);
     if (result) {
       results.password = undefined;
