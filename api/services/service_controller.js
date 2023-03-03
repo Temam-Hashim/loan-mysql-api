@@ -3,6 +3,7 @@ import {
   Get,
   GetById,
   GetByName,
+  GetByStatus,
   Update,
   Delete,
 } from "./service_modal.js";
@@ -83,13 +84,37 @@ export function getServiceByName(req, res) {
   });
 }
 
+export function getServiceByStatus(req, res) {
+  GetByStatus(req.body.status, (error, results) => {
+    if (error) {
+      console.log(error);
+      return res.status(500).json({
+        success: 0,
+        message: "failed to fetch service",
+        status: "failed",
+      });
+    }
+    if (!results) {
+      return res.status(404).json({
+        success: 0,
+        message: "record not found with this status!",
+        status: "empty",
+      });
+    }
+    return res.status(200).json({
+      success: 1,
+      data: results,
+    });
+  });
+}
+
 export function getServices(req, res) {
   Get((error, results) => {
     if (error) {
       console.log(error);
       return res.status(500).json({
         success: 0,
-        message: "failed to fetch user",
+        message: "failed to fetch service",
         status: "failed",
       });
     }
@@ -116,7 +141,7 @@ export function updateService(req, res) {
       console.log(error);
       return res.status(500).json({
         success: 0,
-        message: "failed to update user",
+        message: "failed to update service",
         status: "failed",
       });
     }
@@ -136,7 +161,7 @@ export function deleteService(req, res) {
       console.log(error);
       return res.status(500).json({
         success: 0,
-        message: "failed to delete user",
+        message: "failed to delete service",
         status: "failed",
       });
     } else if (results == "") {

@@ -5,6 +5,7 @@ import {
   updateService,
   deleteService,
   getServiceByName,
+  getServiceByStatus,
 } from "./service_controller.js";
 import express from "express";
 const router = express.Router();
@@ -16,5 +17,6 @@ router.patch("/:id", updateService);
 router.delete("/:id", deleteService);
 router.get("/:id", getServiceById);
 router.post("/name", getServiceByName);
+router.post("/status", getServiceByStatus);
 
 export default router;

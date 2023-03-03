@@ -111,19 +111,19 @@ export function getCustomers(req, res) {
         message: "failed to fetch user",
         status: "failed",
       });
-    }
-    if (!results) {
+    } else if (!results) {
       res.status(201).json({
         success: 0,
         message: "record not found!",
         status: "empty",
       });
+    } else {
+      const { password, created_at, ...others } = results;
+      res.status(200).json({
+        success: 1,
+        data: others,
+      });
     }
-
-    res.status(200).json({
-      success: 1,
-      data: results,
-    });
   });
 }
 export function updateCustomer(req, res) {

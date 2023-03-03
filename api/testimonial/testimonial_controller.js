@@ -2,46 +2,36 @@ import {
   Create,
   Get,
   GetById,
-  GetByName,
+  GetRandom,
   Update,
   Delete,
-} from "./feature_modal.js";
+} from "./testimonial_modal.js";
 
-export function createFeature(req, res) {
+export function createTestimonial(req, res) {
   const body = req.body;
-  GetByName(body.name, (error, results) => {
-    if (!results) {
-      Create(body, (error, results) => {
-        if (error) {
-          console.log(error);
-          return res.status(500).json({
-            success: 0,
-            message: error.message,
-          });
-        }
-        return res.status(200).json({
-          success: 1,
-          data: results,
-        });
-      });
-    } else {
-      res.status(409).json({
-        success: 0,
-        message: "Duplicate Feature with same name",
-        status: "Failed",
-      });
-    }
-  });
-}
-
-export function getFeatureById(req, res) {
-  const featureId = req.params.id;
-  GetById(featureId, (error, results) => {
+  Create(body, (error, results) => {
     if (error) {
       console.log(error);
       return res.status(500).json({
         success: 0,
-        message: "failed to fetch user",
+        message: error.message,
+      });
+    }
+    return res.status(200).json({
+      success: 1,
+      data: results,
+    });
+  });
+}
+
+export function getTestimonialById(req, res) {
+  const id = req.params.id;
+  GetById(id, (error, results) => {
+    if (error) {
+      console.log(error);
+      return res.status(500).json({
+        success: 0,
+        message: "failed to fetch testimonial",
         status: "failed",
       });
     }
@@ -59,37 +49,13 @@ export function getFeatureById(req, res) {
   });
 }
 
-export function getFeatureByName(req, res) {
-  GetByName(req.body.name, (error, results) => {
-    if (error) {
-      console.log(error);
-      return res.status(500).json({
-        success: 0,
-        message: "failed to fetch user",
-        status: "failed",
-      });
-    }
-    if (!results) {
-      return res.status(404).json({
-        success: 0,
-        message: "record not found with this name!",
-        status: "empty",
-      });
-    }
-    return res.status(200).json({
-      success: 1,
-      data: results,
-    });
-  });
-}
-
-export function getFeatures(req, res) {
+export function getTestimonials(req, res) {
   Get((error, results) => {
     if (error) {
       console.log(error);
       return res.status(500).json({
         success: 0,
-        message: "failed to fetch user",
+        message: "failed to fetch testimonial",
         status: "failed",
       });
     }
@@ -107,7 +73,33 @@ export function getFeatures(req, res) {
     });
   });
 }
-export function updateFeature(req, res) {
+
+export function getRandomTestimonials(req, res) {
+  GetRandom((error, results) => {
+    if (error) {
+      console.log(error);
+      return res.status(500).json({
+        success: 0,
+        message: "failed to fetch testimonial",
+        status: "failed",
+      });
+    }
+    if (!results) {
+      return res.status(404).json({
+        success: 0,
+        message: "record not found!",
+        status: "empty",
+      });
+    }
+
+    return res.status(200).json({
+      success: 1,
+      data: results,
+    });
+  });
+}
+
+export function updateTestimonial(req, res) {
   const body = req.body;
   const id = req.params.id;
 
@@ -116,7 +108,7 @@ export function updateFeature(req, res) {
       console.log(error);
       return res.status(500).json({
         success: 0,
-        message: "failed to update user",
+        message: "failed to update testimonial",
         status: "failed",
       });
     }
@@ -127,26 +119,26 @@ export function updateFeature(req, res) {
     });
   });
 }
-export function deleteFeature(req, res) {
+export function deleteTestimonial(req, res) {
   const id = req.params.id;
   Delete(id, (error, results) => {
     if (error) {
       console.log(error);
       return res.status(500).json({
         success: 0,
-        message: "failed to delete user",
+        message: "failed to delete testimonial",
         status: "failed",
       });
     } else if (results == "") {
       return res.status(201).json({
         success: 0,
-        message: "no user with this id",
+        message: "no testimonial with this id",
         status: "failed",
       });
     } else {
       return res.status(200).json({
         success: 1,
-        message: "Feature deleted successfully!",
+        message: "Testimonial deleted successfully!",
       });
     }
   });
