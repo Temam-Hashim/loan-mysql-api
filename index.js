@@ -18,6 +18,7 @@ import aboutRouter from "./api/about/about_route.js";
 import messageRouter from "./api/messages/message_route.js";
 import TestimonialRouter from "./api/testimonial/testimonial_route.js";
 import FAQRouter from "./api/FAQ/faq_route.js";
+import MailerRouter from "./api/nodeMailer/mailerRouter.js";
 
 // image route
 // app.use("/images", express.static(path.join(__dirname, "./images")));
@@ -49,6 +50,7 @@ app.use("/api/v1/about/", aboutRouter);
 app.use("/api/v1/messages/", messageRouter);
 app.use("/api/v1/testimonials/", TestimonialRouter);
 app.use("/api/v1/faq/", FAQRouter);
+app.use("/api/v1/mailer/", MailerRouter);
 
 const port = process.env.SERVER_PORT;
 app.listen(port, () => {
