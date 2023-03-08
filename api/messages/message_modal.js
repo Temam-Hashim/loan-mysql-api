@@ -61,8 +61,21 @@ export function GetByStatus(status, callback) {
 
 export function Update(data, id, callback) {
   pool.query(
-    `UPDATE messages set name=?, email=?, message=? WHERE id=?`,
-    [data.name, data.email, data.message, id],
+    `UPDATE messages set name=?, email=?, message=?,status=? WHERE id=?`,
+    [data.name, data.email, data.message, data.status, id],
+    (errors, results, fields) => {
+      if (errors) {
+        return callback(errors);
+      }
+      return callback(null, results);
+    }
+  );
+}
+
+export function UpdateStatus(data, email, callback) {
+  pool.query(
+    `UPDATE messages set status=? WHERE email=?`,
+    [data.status, email],
     (errors, results, fields) => {
       if (errors) {
         return callback(errors);

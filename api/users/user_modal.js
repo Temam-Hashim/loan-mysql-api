@@ -2,8 +2,8 @@ import pool from "../../config/database.js";
 
 export function Create(data, callback) {
   pool.query(
-    `INSERT INTO users(email,password,role)VALUE(?,?,?)`,
-    [data.email, data.password, data.role],
+    `INSERT INTO users(email,password,role,profile_picture)VALUE(?,?,?)`,
+    [data.email, data.password, data.role, data.profile_picture],
     (errors, results, fields) => {
       if (errors) {
         return callback(errors);
@@ -14,7 +14,7 @@ export function Create(data, callback) {
 }
 export function Get(callback) {
   pool.query(
-    `SELECT id,email,role FROM users`,
+    `SELECT id,email,role,profile_picture FROM users`,
     [],
     (errors, results, fields) => {
       if (errors) {
@@ -38,8 +38,8 @@ export function GetById(id, callback) {
 }
 export function Update(data, id, callback) {
   pool.query(
-    `UPDATE users set email=?, password=?, role=? WHERE id=?`,
-    [data.email, data.password, data.role, id],
+    `UPDATE users set email=?, password=?, role=?,profile_picture=? WHERE id=?`,
+    [data.email, data.password, data.role, data.profile_picture, id],
     (errors, results, fields) => {
       if (errors) {
         return callback(errors);

@@ -6,6 +6,7 @@ import {
   deleteMessage,
   getMessageByEmail,
   getMessageByStatus,
+  updateMessageStatus,
 } from "./message_controller.js";
 import express from "express";
 const router = express.Router();
@@ -16,7 +17,8 @@ router.get("/", getMessages);
 router.patch("/:id", updateMessage);
 router.delete("/:id", deleteMessage);
 router.get("/:id", getMessageById);
-router.get("/byemail/:email", getMessageByEmail);
-router.get("/bystatus/:status", getMessageByStatus);
+router.get("/email/:email", getMessageByEmail);
+router.get("/status/:status", getMessageByStatus);
+router.patch("/status/:email", updateMessageStatus);
 
 export default router;

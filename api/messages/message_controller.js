@@ -5,7 +5,7 @@ import {
   Update,
   Delete,
   GetByEmail,
-  GetByStatus,
+  UpdateStatus,
 } from "./message_modal.js";
 
 export function createMessage(req, res) {
@@ -138,10 +138,29 @@ export function updateMessage(req, res) {
         status: "failed",
       });
     }
-    const { password, ...others } = results;
+
     return res.status(200).json({
       success: 1,
       message: "Message updated successfully!",
+      data: results,
+    });
+  });
+}
+
+export function updateMessageStatus(req, res) {
+  const email = req.params.email;
+  UpdateStatus(req.body, email, (error, results) => {
+    if (error) {
+      console.log(error);
+      return res.status(500).json({
+        success: 0,
+        message: "failed to update messages",
+        status: "failed",
+      });
+    }
+    return res.status(200).json({
+      success: 1,
+      message: "Message Status updated successfully!",
       data: results,
     });
   });
