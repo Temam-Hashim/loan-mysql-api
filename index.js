@@ -3,6 +3,12 @@ import express from "express";
 import cors from "cors";
 import multer from "multer";
 import path from "path";
+import { fileURLToPath } from "url";
+import { dirname } from "path";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 const app = express();
 app.use(express.json());
 dotenv.config();
@@ -21,13 +27,15 @@ import FAQRouter from "./api/FAQ/faq_route.js";
 import MailerRouter from "./api/nodeMailer/mailerRouter.js";
 
 // image route
-// app.use("/images", express.static(path.join(__dirname, "./images")));
+app.use("/images", express.static(path.join(__dirname, "/images")));
+
+// app.use(express.static(path.join(__dirname, "./images")));
 
 // perform file upload operation
 // const randomFileName = randomstring.generate(7);
 const storage = multer.diskStorage({
   destination: (res, file, callback) => {
-    callback(null, "images");
+    callback(null, "./images");
   },
   filename: (req, file, callback) => {
     callback(null, req.body.name);
