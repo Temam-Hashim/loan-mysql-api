@@ -1,4 +1,12 @@
-import { Create, Get, GetById, Update, Delete } from "./message_modal.js";
+import {
+  Create,
+  Get,
+  GetById,
+  Update,
+  Delete,
+  GetByEmail,
+  GetByStatus,
+} from "./message_modal.js";
 
 export function createMessage(req, res) {
   const body = req.body;
@@ -25,7 +33,7 @@ export function getMessageById(req, res) {
       console.log(error);
       return res.status(500).json({
         success: 0,
-        message: "failed to fetch user",
+        message: "failed to fetch message",
         status: "failed",
       });
     }
@@ -33,6 +41,56 @@ export function getMessageById(req, res) {
       return res.status(404).json({
         success: 0,
         message: "record not found!",
+        status: "empty",
+      });
+    }
+    return res.status(200).json({
+      success: 1,
+      data: results,
+    });
+  });
+}
+
+export function getMessageByEmail(req, res) {
+  const email = req.params.email;
+  GetByEmail(email, (error, results) => {
+    if (error) {
+      console.log(error);
+      return res.status(500).json({
+        success: 0,
+        message: "failed to fetch message",
+        status: "failed",
+      });
+    }
+    if (!results) {
+      return res.status(404).json({
+        success: 0,
+        message: "record not found!",
+        status: "empty",
+      });
+    }
+    return res.status(200).json({
+      success: 1,
+      data: results,
+    });
+  });
+}
+
+export function getMessageByStatus(req, res) {
+  const status = req.params.status;
+  GetByStatus(status, (error, results) => {
+    if (error) {
+      console.log(error);
+      return res.status(500).json({
+        success: 0,
+        message: "failed to fetch message",
+        status: "failed",
+      });
+    }
+    if (!results) {
+      return res.status(404).json({
+        success: 0,
+        message: "No message found!",
         status: "empty",
       });
     }

@@ -33,6 +33,32 @@ export function GetById(id, callback) {
   );
 }
 
+export function GetByEmail(email, callback) {
+  pool.query(
+    `SELECT * FROM messages WHERE email=?`,
+    [email],
+    (errors, results, fields) => {
+      if (errors) {
+        return callback(errors);
+      }
+      return callback(null, results);
+    }
+  );
+}
+
+export function GetByStatus(status, callback) {
+  pool.query(
+    `SELECT * FROM messages WHERE status=?`,
+    [status],
+    (errors, results, fields) => {
+      if (errors) {
+        return callback(errors);
+      }
+      return callback(null, results);
+    }
+  );
+}
+
 export function Update(data, id, callback) {
   pool.query(
     `UPDATE messages set name=?, email=?, message=? WHERE id=?`,
