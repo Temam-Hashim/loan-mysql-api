@@ -6,6 +6,7 @@ import {
   Delete,
   GetByEmail,
   UpdateStatus,
+  GetByStatus,
 } from "./message_modal.js";
 
 export function createMessage(req, res) {
