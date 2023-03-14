@@ -35,7 +35,7 @@ app.use("/images", express.static(path.join(__dirname, "/images")));
 // const randomFileName = randomstring.generate(7);
 const storage = multer.diskStorage({
   destination: (res, file, callback) => {
-    callback(null, "./images");
+    callback(file, "./images");
   },
   filename: (req, file, callback) => {
     callback(null, req.body.name);

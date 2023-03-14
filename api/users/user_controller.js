@@ -154,6 +154,7 @@ export function login(req, res) {
       return res.json({
         success: 1,
         message: "login Successful!",
+        data:results,
         token: jt,
       });
     } else {

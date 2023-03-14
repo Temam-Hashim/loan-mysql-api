@@ -36,6 +36,7 @@ export function GetById(id, callback) {
     }
   );
 }
+
 export function Update(data, id, callback) {
   pool.query(
     `UPDATE users set email=?, password=?, role=?,profile_picture=? WHERE id=?`,
