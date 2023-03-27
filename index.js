@@ -26,6 +26,9 @@ import TestimonialRouter from "./api/testimonial/testimonial_route.js";
 import FAQRouter from "./api/FAQ/faq_route.js";
 import MailerRouter from "./api/nodeMailer/mailerRouter.js";
 
+import { checkToken } from "./auth/token_validation.js";
+
+
 // image route
 app.use("/images", express.static(path.join(__dirname, "/images")));
 
@@ -48,6 +51,8 @@ app.post("/api/v1/upload", upload.single("file"), (req, res) => {
   res.status(200).json("file has been uploaded");
 });
 
+app.get("/api/v1/auth/",checkToken);
+
 // get  router
 app.use("/api/v1/users/", userRouter);
 app.use("/api/v1/customers/", customerRouter);
@@ -59,6 +64,12 @@ app.use("/api/v1/messages/", messageRouter);
 app.use("/api/v1/testimonials/", TestimonialRouter);
 app.use("/api/v1/faq/", FAQRouter);
 app.use("/api/v1/mailer/", MailerRouter);
+
+
+
+//camunda app routes
+
+
 
 const port = process.env.SERVER_PORT;
 app.listen(port, () => {

@@ -6,18 +6,19 @@ export function checkToken(req, res, next) {
     token = token.slice(7);
     jwt.verify(token, process.env.JWT_KEY, (err, decoded) => {
       if (err) {
-        res.json({
+        res.status(400).json({
           success: 0,
           message: "invalid token passed!",
         });
       } else {
-        next();
+        res.status(200).json({success:1, message:"validated"})
+        // next();
       }
     });
   } else {
-    res.json({
+    res.status(400).json({
       success: 0,
-      message: "access denied! unauthorized user",
+      message: "access denied! no token passed !",
     });
   }
 }
