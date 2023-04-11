@@ -7,6 +7,8 @@ import {
   GetByMobile,
   GetByAccount,
 } from "./customer_modal.js";
+
+import {Delete as DeleteAddress} from "./../address/address_modal.js"
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
@@ -52,6 +54,7 @@ export function createCustomer(req, res) {
     //
   });
 }
+
 export function getCustomerById(req, res) {
   const userId = req.params.id;
   GetById(userId, (error, results) => {
@@ -157,17 +160,31 @@ export function deleteCustomer(req, res) {
         message: "failed to delete user. server error",
         status: "failed",
       });
-    } else if (results !== []) {
-      res.status(200).json({
-        success: 1,
-        message: "user deleted successfully!",
-      });
-    } else {
+    } else if (!results) {
       res.status(404).json({
         success: 0,
         message: "no user found with the specified id",
         status: "failed",
       });
+  
+    } else {
+    
+      // delete associated address
+
+      DeleteAddress(id,(error,results)=>{
+        if(error){
+           res.status(500).json({
+          success: 0,
+          message: "failed to delete user. server error",
+          status: "failed",
+          });
+        }else{
+          res.status(200).json({
+            success: 1,
+            message: "user and associated address deleted successfully!",
+          });
+        }
+      })
     }
   });
 }

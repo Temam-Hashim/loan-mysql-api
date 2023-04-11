@@ -24,6 +24,7 @@ import aboutRouter from "./api/about/about_route.js";
 import messageRouter from "./api/messages/message_route.js";
 import TestimonialRouter from "./api/testimonial/testimonial_route.js";
 import FAQRouter from "./api/FAQ/faq_route.js";
+import AddressRouter from "./api/address/address_router.js"
 import MailerRouter from "./api/nodeMailer/mailerRouter.js";
 
 import { checkToken } from "./auth/token_validation.js";
@@ -63,6 +64,7 @@ app.use("/api/v1/about/", aboutRouter);
 app.use("/api/v1/messages/", messageRouter);
 app.use("/api/v1/testimonials/", TestimonialRouter);
 app.use("/api/v1/faq/", FAQRouter);
+app.use("/api/v1/address/", AddressRouter);
 app.use("/api/v1/mailer/", MailerRouter);
 
 
